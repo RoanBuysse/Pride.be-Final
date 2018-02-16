@@ -17,4 +17,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+Route::prefix('manage')->group(function(){
+    Route::get('/dashboard','ManageController@dashboard')->name('manage.dashboard'); 
+});
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+Route::get('auth/facebook', 'Auth\LoginController@redirectToProviderFacebook');
+Route::get('auth/facebook/callback', 'Auth\LoginController@handleProviderCallbackFacebook');
+
+
+Route::get('auth/google', 'Auth\LoginController@redirectToProviderGoogle');
+Route::get('auth/google/callback', 'Auth\LoginController@handleProviderCallbackGoogle');
