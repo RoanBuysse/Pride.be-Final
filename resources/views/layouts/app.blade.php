@@ -16,7 +16,6 @@
 <body>
     <div id="app">
         @include('_includes.nav.main')
-        @include('_includes.nav.manage')
 
         <main class="py-4">
             @yield('content')
