@@ -20,7 +20,7 @@
         @include('_includes.nav.main')
         @include('_includes.nav.manage')
 
-        <main class="py-4">
+        <main class="container">
             @yield('content')
         </main>
     </div>
