@@ -35,7 +35,8 @@
                        <td>{{$user->country}}</td>
                        <td>{{$user->email}}</td>
                        <td>{{$user->created_at}}</td>
-                       <td><a href=""{{route('users.edit', $user->id)}} class="button is-outlined">Edit</a></td>
+                       <td><a href="{{route('users.edit', $user->id)}}" class="button is-outlined">Edit</a></td>
+                        
                 </tr>
                 @endforeach
             </tbody>

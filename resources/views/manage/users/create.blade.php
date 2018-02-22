@@ -52,7 +52,7 @@
           <div class="field">
             <label for="password" class="label">Password</label>
             <p class="control">
-              <input type="text" class="input" name="password" id="password" placeholder="Manually give a password to this user">
+              <input type="text" class="input" name="password" id="password"  placeholder="Manually give a password to this user">
             </p>
           </div>
 
@@ -65,4 +65,6 @@
 @endsection
 
 
-@endsection
+
+
+

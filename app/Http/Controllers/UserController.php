@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use DB;
+use Session;
+use Hash;
+
 
 class UserController extends Controller
 {
@@ -48,9 +52,9 @@ class UserController extends Controller
 
         $user = new User();
         $user->name = $request->name;
-        $user->name = $request->surname;
-        $user->name = $request->city;
-        $user->name = $request->country;
+        $user->surname = $request->surname;
+        $user->city = $request->city;
+        $user->country = $request->country;
         $user->email = $request->email;
         $user->password = Hash::make($password);
 
@@ -95,7 +99,28 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [ 
+            'name' => 'required|max:255',
+            'surname' => 'required|max:255',
+            'city' => 'required|max:255',
+            'country' => 'required|max:255',
+            'email'=> 'required|email|unique:users,email,'.$id
+            
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->surname = $request->surname;
+        $user->city = $request->city;
+        $user->country = $request->country;
+        $user->email = $request->email;
+
+        if ($user->save()) {
+            return redirect()->route('users.show', $id);
+          } else {
+            Session::flash('error', 'There was a problem saving the updated user info to the database. Try again later.');
+            return redirect()->route('users.edit', $id);
+          }
     }
 
     /**
