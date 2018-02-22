@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class UserController extends Controller
 {
@@ -12,8 +13,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-       return view('manage.users.index');
+    {  
+       $users = User::orderBy('id','desc')->paginate(15);
+       return view('manage.users.index')->withUsers($users);
     }
 
     /**
@@ -23,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('manage.users.create');
     }
 
     /**
@@ -34,7 +36,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'surname' => 'required|max:255',
+            'city' => 'required|max:255',
+            'country' => 'required|max:255',
+            'email'=> 'required|email|unique:users'
+        ]);
+
+         # set the manual password
+         $length = 10;
+         $keyspace = '123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ';
+         $str = '';
+         $max = mb_strlen($keyspace, '8bit') - 1;
+         for ($i = 0; $i < $length; ++$i) {
+             $str .= $keyspace[random_int(0, $max)];
+         }
+         $password = $str;
+
+        $user = new User();
     }
 
     /**
